@@ -93,28 +93,26 @@ function App() {
   // ??? 위 주석처리 한 코드는 왜 작동이 안 되고 아래는 왜 되는지?
 
   return (
-    <>
+    <BrowserRouter>
       <AuthProvider>
-        <BrowserRouter>
-          <Layout>
-            <Routes>
-              <Route
-                path="/"
-                element={<PrivateRoute element={<Home expenses={expenses} setExpenses={setExpenses} />} />}
-              />
-              <Route
-                path="/detail/:id"
-                element={<PrivateRoute element={<Detail expenses={expenses} setExpensese={setExpenses} />} />}
-              />
-              <Route path="/login"
-                element={<PublicRoute element={<Login />} />} />
-              <Route path="/mypage"
-                element={<PrivateRoute element={<MyPage />} />} />
-            </Routes>
-          </Layout>
-        </BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route
+              path="/"
+              element={<PrivateRoute element={<Home expenses={expenses} setExpenses={setExpenses} />} />}
+            />
+            <Route
+              path="/detail/:id"
+              element={<PrivateRoute element={<Detail expenses={expenses} setExpensese={setExpenses} />} />}
+            />
+            <Route path="/login"
+              element={<PublicRoute element={<Login />} />} />
+            <Route path="/mypage"
+              element={<PrivateRoute element={<MyPage />} />} />
+          </Routes>
+        </Layout>
       </AuthProvider>
-    </>
+    </BrowserRouter>
   );
 }
 

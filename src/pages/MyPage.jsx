@@ -108,7 +108,7 @@ const MyPage = () => {
   const [newNickname, setNewNickname] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileName, setFileName] = useState("");
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
 
@@ -172,7 +172,12 @@ const MyPage = () => {
         setUserInfo((prevState) => ({
           ...prevState,
           nickname: response.data.nickname,
-          profileImage: response.data.profileImage,
+          avatar: response.data.avatar,
+        }));
+        setUser((prevState) => ({
+          ...prevState,
+          nickname: response.data.nickname,
+          avatar: response.data.avatar,
         }));
         alert("프로필이 업데이트되었습니다.");
         setNewNickname("");
