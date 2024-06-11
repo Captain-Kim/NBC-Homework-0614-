@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import axios from "axios";
+import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -101,31 +104,118 @@ const Button = styled.button`
 `;
 
 const MyPage = () => {
-  const [fileName, setFileName] = useState("선택한 파일 없음");
+  const [userInfo, setUserInfo] = useState(null);
+  const [newNickname, setNewNickname] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [fileName, setFileName] = useState("");
+  const { isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+
+  // const handleFileChange = (e) => {
+  //   setFileName(e.target.files[0]?.name || "선택한 파일 없음");
+  // };
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
+    } else {
+      const fetchUserInfo = async () => {
+        try {
+          const token = localStorage.getItem("accessToken");
+          const response = await axios.get(
+            "https://moneyfulpublicpolicy.co.kr/user",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setUserInfo(response.data);
+        } catch (error) {
+          console.error("서버에서 유저 정보를 못 받아왔습니다요 이유는 =>", error);
+        }
+      };
+      fetchUserInfo();
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleFileChange = (e) => {
-    setFileName(e.target.files[0]?.name || "선택한 파일 없음");
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    setFileName(file.name);
   };
+
+  const handleProfileUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("accessToken");
+      const formData = new FormData();
+      formData.append("nickname", newNickname);
+      if (selectedFile) {
+        formData.append("avatar", selectedFile);
+      }
+
+      const response = await axios.patch(
+        "https://moneyfulpublicpolicy.co.kr/profile",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.data.success) {
+        setUserInfo((prevState) => ({
+          ...prevState,
+          nickname: response.data.nickname,
+          profileImage: response.data.profileImage,
+        }));
+        alert("프로필이 업데이트되었습니다.");
+        setNewNickname("");
+        setSelectedFile(null);
+        setFileName("");
+      } else {
+        alert("프로필 업데이트에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+      alert("프로필 업데이트에 실패했습니다.");
+    }
+  };
+
+  if (!userInfo) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Container>
-      <InputFieldWithLabel>
-        <label>변경할 닉네임</label>
-        <input type="text" />
-      </InputFieldWithLabel>
-      <InputFieldWithLabel>
-        <label>변경할 프로필 사진 선택</label>
-        <InputFieldWithButton>
-          <label htmlFor="file-upload">파일 선택</label>
-          <span>{fileName}</span>
+      <form onSubmit={handleProfileUpdate}>
+        <InputFieldWithLabel>
+          <label>변경할 닉네임</label>
           <input
-            id="file-upload"
-            type="file"
-            onChange={handleFileChange}
+            type="text"
+            value={newNickname}
+            onChange={(e) => setNewNickname(e.target.value)}
           />
-        </InputFieldWithButton>
-      </InputFieldWithLabel>
-      <Button>프로필 업데이트 하기</Button>
+        </InputFieldWithLabel>
+        <InputFieldWithLabel>
+          <label>변경할 프로필 사진 선택</label>
+          <InputFieldWithButton>
+            <label htmlFor="file-upload">파일 선택</label>
+            <span>{fileName}</span>
+            <input
+              id="file-upload"
+              type="file"
+              onChange={handleFileChange}
+            />
+          </InputFieldWithButton>
+        </InputFieldWithLabel>
+        <Button type="submit">프로필 업데이트 하기</Button>
+      </form>
     </Container>
   );
 };
