@@ -6,6 +6,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import Layout from "./components/Layout";
+import MyPage from "./pages/MyPage";
 
 function App() {
   const [expenses, setExpenses] = useState([
@@ -82,6 +83,7 @@ function App() {
             element={<Detail expenses={expenses} setExpenses={setExpenses} />}
           />
           <Route path="/signin" element={<SignIn/>} />
+          <Route path="/mypage" element={<MyPage/>} />
         </Routes>
         </Layout>
       </BrowserRouter>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.header`
@@ -7,27 +8,20 @@ const HeaderContainer = styled.header`
   align-items: center;
   background-color: #333;
   padding: 10px 20px;
-
-//   position: relative;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//   width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 1000;
 `;
-
-// const Logo = styled.div`
-//   font-size: 24px;
-//   font-weight: bold;
-//   color: white;
-// `;
 
 const NavLinks = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const NavLink = styled.a`
+const NavLink = styled(Link)`
   margin-right: 20px;
   font-size: 18px;
   color: white;
@@ -74,8 +68,8 @@ const Header = () => {
     <HeaderContainer>
       {/* <Logo>HOME</Logo> */}
       <NavLinks>
-        <NavLink href="#">Home</NavLink>
-        <NavLink href="#">내 프로필</NavLink>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/mypage">내 프로필</NavLink>
       </NavLinks>
       <ProfileContainer>
         <ProfileImage src="profile_image_url" alt="Profile" />
