@@ -92,7 +92,7 @@ const Icon = styled.i`
   color: #fff;
 `;
 
-const SignIn = () => {
+const Login = () => {
   const [signUpActive, setSignUpActive] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -181,4 +181,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Login;

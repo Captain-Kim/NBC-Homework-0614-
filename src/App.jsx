@@ -1,12 +1,13 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Detail from "./pages/Detail";
-import SignIn from "./pages/SignIn";
-import { useState } from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { AuthContext, AuthProvider } from "../context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import Detail from "./pages/Detail";
 import MyPage from "./pages/MyPage";
+import Login from "./pages/Login";
 
 function App() {
   const [expenses, setExpenses] = useState([
@@ -69,24 +70,50 @@ function App() {
     },
   ]);
 
+  // const PrivateRoute = ({ element: Element, ...rest }) => {
+  //   const { isAuthenticated } = useContext(AuthContext);
+  //   return isAuthenticated ? <Element {...rest} /> : <Navigate to="/login" />;
+  // };
+
+  // const PublicRoute = ({ element: Element, ...rest }) => {
+  //   const { isAuthenticated } = useContext(AuthContext);
+  //   return !isAuthenticated ? <Element {...rest} /> : <Navigate to="/mypage" />;
+  // };
+
+  const PrivateRoute = ({ element, ...rest }) => {
+    const { isAuthenticated } = useContext(AuthContext);
+    return isAuthenticated ? element : <Navigate to="/login" />;
+  };
+
+  const PublicRoute = ({ element, ...rest }) => {
+    const { isAuthenticated } = useContext(AuthContext);
+    return !isAuthenticated ? element : <Navigate to="/mypage" />;
+  };
+
+  // ??? 위 주석처리 한 코드는 왜 작동이 안 되고 아래는 왜 되는지?
+
   return (
     <>
-      <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route
-            path="/"
-            element={<Home expenses={expenses} setExpenses={setExpenses} />}
-          />
-          <Route
-            path="/detail/:id"
-            element={<Detail expenses={expenses} setExpenses={setExpenses} />}
-          />
-          <Route path="/signin" element={<SignIn/>} />
-          <Route path="/mypage" element={<MyPage/>} />
-        </Routes>
-        </Layout>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Layout>
+            <Routes>
+              <Route
+                path="/"
+                element={<PrivateRoute element={<Home />} />}
+              />
+              <Route
+                path="/detail/:id"
+                element={<PrivateRoute element={<Detail expenses={expenses} setExpensese={setExpenses} />} />}
+              />
+              <Route path="/login"
+                element={<PublicRoute element={<Login />} />} />
+              <Route path="/mypage"
+                element={<PrivateRoute element={<MyPage />} />} />
+            </Routes>
+          </Layout>
+        </BrowserRouter>
+      </AuthProvider>
     </>
   );
 }
