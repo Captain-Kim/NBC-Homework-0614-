@@ -1,13 +1,14 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #333;
-  padding: 10px 20px;
+  // padding: 10px 20px;
   position: fixed;
   top: 0;
   left: 0;
@@ -64,6 +65,9 @@ const LogoutButton = styled.button`
 `;
 
 const Header = () => {
+
+  const { logout } = useContext(AuthContext);
+
   return (
     <HeaderContainer>
       {/* <Logo>HOME</Logo> */}
@@ -74,7 +78,7 @@ const Header = () => {
       <ProfileContainer>
         <ProfileImage src="profile_image_url" alt="Profile" />
         <Username>test344</Username>
-        <LogoutButton>로그아웃</LogoutButton>
+        <LogoutButton onClick={logout}>로그아웃</LogoutButton>
       </ProfileContainer>
     </HeaderContainer>
   );
