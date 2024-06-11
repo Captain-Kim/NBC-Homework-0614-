@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { AuthContext } from '../../context/AuthContext';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -17,7 +20,7 @@ const Input = styled.input`
   padding: 15px;
   font-size: 1.2em;
   border: none;
-  margin-bottom: 25px;
+  margin: 30px auto;
 `;
 
 const Button = styled.button`
@@ -48,7 +51,7 @@ const SignUpBox = styled.div`
     bottom: 0;
     right: 0;
     width: 100%;
-    height: 100%;
+    height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -92,13 +95,15 @@ const Icon = styled.i`
   color: #fff;
 `;
 
-const Login = () => {
+const LoginPage = () => {
   const [signUpActive, setSignUpActive] = useState(false);
-  const [email, setEmail] = useState('');
+  const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [signUpNickname, setSignUpNickname] = useState('');
-  const [signUpEmail, setSignUpEmail] = useState('');
+  const [signUpId, setSignUpId] = useState('');
   const [signUpPassword, setSignUpPassword] = useState('');
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     if (signUpActive) return;
@@ -116,21 +121,46 @@ const Login = () => {
     removeActive();
   };
 
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "https://moneyfulpublicpolicy.co.kr/login",
+        {
+          id,
+          password,
+        }
+      );
+      const data = response.data;
+      if (data.success) {
+        login(data.accessToken);
+        navigate('/');
+      } else {
+        alert('로그인에 실패했습니다. 계정을 확인해주세요.')
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('로그인에 실패했습니다.')
+    }
+  };
+
   return (
     <Container>
-      <Input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <Input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Button>로그인</Button>
+      <form onSubmit={handleLoginSubmit}>
+        <Input
+          type="text"
+          placeholder="아이디"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="비밀번호"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button type="submit">로그인</Button>
+      </form>
 
       <SignUpBox className={signUpActive ? 'active' : ''} onClick={handleClick}>
         {signUpActive ? (
@@ -151,16 +181,16 @@ const Login = () => {
               onChange={(e) => setSignUpNickname(e.target.value)}
             />
             <Input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={signUpEmail}
-              onChange={(e) => setSignUpEmail(e.target.value)}
+              type="text"
+              name="id"
+              placeholder="아이디"
+              value={signUpId}
+              onChange={(e) => setSignUpId(e.target.value)}
             />
             <Input
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder="비밀번호"
               value={signUpPassword}
               onChange={(e) => setSignUpPassword(e.target.value)}
             />
@@ -181,4 +211,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

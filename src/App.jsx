@@ -7,7 +7,7 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 import MyPage from "./pages/MyPage";
-import Login from "./pages/Login";
+import Login from "./pages/LoginPage";
 
 function App() {
   const [expenses, setExpenses] = useState([
@@ -100,7 +100,7 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={<PrivateRoute element={<Home />} />}
+                element={<PrivateRoute element={<Home expenses={expenses} setExpenses={setExpenses} />} />}
               />
               <Route
                 path="/detail/:id"
