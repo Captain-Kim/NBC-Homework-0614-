@@ -61,6 +61,7 @@ const InputFieldWithButton = styled.div`
 
   label {
     padding: 12px 16px;
+    margin: 10px;
     font-size: 1em;
     border: none;
     background-color: #86acd9;
@@ -101,6 +102,11 @@ const Button = styled.button`
   &:hover {
     background: #333333;
   }
+`;
+
+const CurrentProfilePic = styled.img`
+  width: 250px;
+  border-radius: 20px;
 `;
 
 const MyPage = () => {
@@ -206,7 +212,7 @@ const MyPage = () => {
         </InputFieldWithLabel>
         <InputFieldWithLabel>
           <label>현재 프로필 사진</label>
-          <img src={userInfo.avatar} width={250}/>
+          <CurrentProfilePic src={userInfo.avatar}/>
           <label>변경할 프로필 사진 선택</label>
           <InputFieldWithButton>
             <label htmlFor="file-upload">파일 선택</label>

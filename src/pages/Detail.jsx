@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
+import { jsonApi } from "../../api";
 
 const Container = styled.div`
   max-width: 800px;
@@ -96,10 +97,15 @@ export default function Detail({ expenses, setExpenses }) {
     navigate("/");
   };
 
-  const deleteExpense = () => {
-    const newExpenses = expenses.filter((expense) => expense.id !== id);
-    setExpenses(newExpenses);
-    navigate("/");
+  const deleteExpense = async(id) => {
+    try {
+      await jsonApi.delete(`/expenses/${id}`);
+      setExpenses(prevExpenses => prevExpenses.filter(expense => expense.id !== id));
+      alert(`${description} 항목을 삭제하였습니다.`);
+      navigate('/');
+    } catch (error){
+      alert('삭제 과정에서 에러가 발생했습니다 : ' + error.message);
+    }
   };
 
   return (
@@ -146,7 +152,7 @@ export default function Detail({ expenses, setExpenses }) {
       </InputGroup>
       <ButtonGroup>
         <Button onClick={editExpense}>수정</Button>
-        <Button danger="true" onClick={deleteExpense}>
+        <Button danger="true" onClick={() => deleteExpense(id)}>
           삭제
         </Button>
         <BackButton onClick={() => navigate(-1)}>뒤로 가기</BackButton>

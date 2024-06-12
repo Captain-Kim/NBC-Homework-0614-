@@ -56,6 +56,7 @@ const ExpenseDetails = styled.div`
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 100%;
+      padding-top: 5px;
     }
   }
 `;
