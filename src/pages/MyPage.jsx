@@ -111,11 +111,6 @@ const MyPage = () => {
   const { isAuthenticated, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-
-  // const handleFileChange = (e) => {
-  //   setFileName(e.target.files[0]?.name || "선택한 파일 없음");
-  // };
-
   useEffect(() => {
     if (!isAuthenticated) {
       alert("로그인이 필요합니다.");
@@ -175,16 +170,11 @@ const MyPage = () => {
           nickname: response.data.nickname,
           avatar: response.data.avatar,
         }));
-        setUser((prevState) => (
-          // ...prevState,
-          response.data.nickname
-        ));
-        // setUser((prevState) => ({
-        //   ...prevState,
-        //   nickname: response.data.nickname,
-        //   avatar: response.data.avatar,
-        // }));
-        // user 상태에는 닉네임만 들어감, 객체 아님 (이름 잘못 지음)
+        setUser((prevState) => ({
+          ...prevState,
+          nickname: response.data.nickname,
+          avatar: response.data.avatar,
+        }));
         alert("프로필이 업데이트되었습니다.");
         setNewNickname("");
         setSelectedFile(null);

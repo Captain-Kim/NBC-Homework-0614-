@@ -134,7 +134,7 @@ const LoginPage = () => {
       const data = response.data;
       if (data.success) {
         console.log("날아온 유저 데이터 => ", data);
-        login(data.accessToken, data.nickname);
+        login(data.accessToken, data);
         navigate('/');
       } else {
         alert('로그인에 실패했습니다. 계정을 확인해주세요.')

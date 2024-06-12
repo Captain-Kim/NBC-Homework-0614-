@@ -67,18 +67,17 @@ const LogoutButton = styled.button`
 const Header = () => {
 
   const { logout, user } = useContext(AuthContext);
-  console.log(user);
+  console.log("헤더에 필요한 유저의 정보는요 =>", user);
 
   return (
     <HeaderContainer>
-      {/* <Logo>HOME</Logo> */}
       <NavLinks>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/mypage">내 프로필</NavLink>
       </NavLinks>
       <ProfileContainer>
-        <ProfileImage src="profile_image_url" alt="Profile" />
-        <Username>{user ? user : '로그인 필요'}</Username>
+        <ProfileImage src={user && user.avatar} alt="Profile" />
+        <Username>{user ? user.nickname : '로그인 필요'}</Username>
         <LogoutButton onClick={logout}>로그아웃</LogoutButton>
       </ProfileContainer>
     </HeaderContainer>
