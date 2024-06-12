@@ -133,6 +133,7 @@ const MyPage = () => {
             }
           );
           setUserInfo(response.data);
+          console.log('GET 요청에 대한 응답입니다요(userInfo) =>', userInfo);
         } catch (error) {
           console.error("서버에서 유저 정보를 못 받아왔습니다요 이유는 =>", error);
         }
@@ -174,11 +175,16 @@ const MyPage = () => {
           nickname: response.data.nickname,
           avatar: response.data.avatar,
         }));
-        setUser((prevState) => ({
-          ...prevState,
-          nickname: response.data.nickname,
-          avatar: response.data.avatar,
-        }));
+        setUser((prevState) => (
+          // ...prevState,
+          response.data.nickname
+        ));
+        // setUser((prevState) => ({
+        //   ...prevState,
+        //   nickname: response.data.nickname,
+        //   avatar: response.data.avatar,
+        // }));
+        // user 상태에는 닉네임만 들어감, 객체 아님 (이름 잘못 지음)
         alert("프로필이 업데이트되었습니다.");
         setNewNickname("");
         setSelectedFile(null);
@@ -200,6 +206,7 @@ const MyPage = () => {
     <Container>
       <form onSubmit={handleProfileUpdate}>
         <InputFieldWithLabel>
+          <label>현재 닉네임 : {userInfo.nickname}</label>
           <label>변경할 닉네임</label>
           <input
             type="text"
@@ -208,6 +215,8 @@ const MyPage = () => {
           />
         </InputFieldWithLabel>
         <InputFieldWithLabel>
+          <label>현재 프로필 사진</label>
+          <img src={userInfo.avatar} width={250}/>
           <label>변경할 프로필 사진 선택</label>
           <InputFieldWithButton>
             <label htmlFor="file-upload">파일 선택</label>
