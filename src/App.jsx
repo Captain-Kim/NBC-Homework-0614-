@@ -38,7 +38,12 @@ function App() {
     queryFn: async () => {
       const { data } = await jsonApi.get('/expenses');
       return data;
-    }
+    },
+    // staleTime 기본값 0 -> 서버에서 방금 받아온 정보도 수정이 일어났을 수 있으니
+    // fresh하다고 보장할 수 없다. (stale하다)
+    // infinity하다고 하는 것은 fresh를 보장하는 것.
+    // 나 말고 어차피 아무도 건드릴 일이 없는 정보는 fresh하다고 보고 트래픽 낭비를 줄일 수 있음.
+    staleTime: Infinity
   });
 
   if (isLoading) return <div>로딩중입니다</div>;
