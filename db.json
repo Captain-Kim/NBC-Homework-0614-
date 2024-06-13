@@ -64,28 +64,41 @@
       "createdBy": "Musk"
     },
     {
-      "id": "8a02b3ba-710d-4b1a-8915-f2e0f4c01c7c",
+      "id": "8b3948bc-b7f6-4c25-a9c9-fd1d2d6a4813",
       "month": 1,
-      "date": "2024-01-01",
+      "date": "2024-01-14",
       "item": "식비",
-      "amount": 120000,
-      "description": "왕가네 대박집 삼겹살"
+      "amount": 20000,
+      "description": "스타벅스 커피",
+      "createdBy": "Me"
     },
     {
-      "id": "feae55f9-9af6-4abe-8536-26b4d723a766",
+      "id": "d1e7c8a5-cc0f-48a8-8223-7c4d5169e7b5",
       "month": 1,
-      "date": "2024-01-01",
-      "item": "식비",
-      "amount": 24000,
-      "description": "홍콩반점 짜장은 만점"
+      "date": "2024-01-18",
+      "item": "여행",
+      "amount": 300000,
+      "description": "부산 여행",
+      "createdBy": "Rosie"
     },
     {
-      "id": "b1847123-9d29-4619-8848-8173eca5e31b",
+      "id": "ec8e4f50-3d4d-4e6b-84ab-9a59a8b1d94c",
       "month": 1,
-      "date": "2024-01-01",
-      "item": "쇼핑",
-      "amount": 1200000,
-      "description": "맥북 에어"
+      "date": "2024-01-20",
+      "item": "건강",
+      "amount": 70000,
+      "description": "헬스장 등록",
+      "createdBy": "Me"
+    },
+    {
+      "id": "f948e58c-3d54-4c53-a1a4-5f8a8bcaf1d4",
+      "month": 1,
+      "date": "2024-01-25",
+      "item": "식비",
+      "amount": 90000,
+      "description": "이탈리안 레스토랑 ㅋㅋ ww",
+      "createdBy": "Musk",
+      "descripton": "이탈리안 레스토랑 ㅋㅋ ㅎㅎ"
     }
   ]
 }
