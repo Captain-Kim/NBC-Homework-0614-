@@ -59,7 +59,7 @@ const BackButton = styled(Button)`
   }
 `;
 
-export default function Detail({ expenses, setExpenses }) {
+export default function Detail({ expenses }) {
   const navigate = useNavigate();
   const { id } = useParams();
 
