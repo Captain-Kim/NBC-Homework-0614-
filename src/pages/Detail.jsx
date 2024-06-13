@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { jsonApi } from "../../api";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 
 const Container = styled.div`
   max-width: 800px;
@@ -103,17 +103,28 @@ export default function Detail({ expenses }) {
     }
   };
 
-
-  const deleteExpense = async (id) => {
-    try {
-      await jsonApi.delete(`/expenses/${id}`);
-      setExpenses(prevExpenses => prevExpenses.filter(expense => expense.id !== id));
-      alert(`${description} 항목을 삭제하였습니다.`);
+  const deleteMutation = useMutation({
+    mutationFn: (id) => jsonApi.delete(`/expenses/${id}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['expenses'] });
+      alert(`${description} 항목을 삭제했습니다.`);
       navigate('/');
-    } catch (error) {
-      alert('삭제 과정에서 에러가 발생했습니다 : ' + error.message);
-    }
-  };
+    },
+    onError: (error) => {
+      alert('삭제 과정에서 에러가 발생했습니다: ' + error.message);
+    },
+  });
+
+  // const deleteExpense = async (id) => {
+  //   try {
+  //     await jsonApi.delete(`/expenses/${id}`);
+  //     setExpenses(prevExpenses => prevExpenses.filter(expense => expense.id !== id));
+  //     alert(`${description} 항목을 삭제하였습니다.`);
+  //     navigate('/');
+  //   } catch (error) {
+  //     alert('삭제 과정에서 에러가 발생했습니다 : ' + error.message);
+  //   }
+  // };
 
   return (
     <Container>
@@ -159,7 +170,7 @@ export default function Detail({ expenses }) {
       </InputGroup>
       <ButtonGroup>
         <Button onClick={() => editExpense(id)}>수정</Button>
-        <Button danger="true" onClick={() => deleteExpense(id)}>
+        <Button danger="true" onClick={() => deleteMutation.mutate(id)}>
           삭제
         </Button>
         <BackButton onClick={() => navigate(-1)}>뒤로 가기</BackButton>

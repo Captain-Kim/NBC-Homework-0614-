@@ -93,43 +93,6 @@ export default function CreateExpense({ month, expenses, setExpenses }) {
       };
     }
 
-    // const handleAddExpense = async () => {
-    //   try {
-    //     const datePattern = /^\d{4}-\d{2}-\d{2}$/;
-    //     if (!datePattern.test(newDate)) {
-    //       alert('날짜를 YYYY-MM-DD 형식으로 입력해주세요.');
-    //       return;
-    //     }
-
-    //     const parsedAmount = parseInt(newAmount, 10);
-    //     if (!newItem || parsedAmount <= 0) {
-    //       alert('유효한 항목과 금액을 입력해주세요.');
-    //       return;
-    //     }
-
-    //     const newExpense = {
-    //       id: uuidv4(),
-    //       month: parseInt(newDate.split("-")[1], 10),
-    //       date: newDate,
-    //       item: newItem,
-    //       amount: parsedAmount,
-    //       description: newDescription,
-    //     };
-
-    //     await jsonApi.post(`/expenses/`, newExpense);
-    //     setExpenses([...expenses, newExpense]);
-    //     alert(`${newItem} 항목을 등록하였습니다.`);
-
-    //     setNewDate(`2024-${String(month).padStart(2, "0")}-01`);
-    //     setNewItem("");
-    //     setNewAmount("");
-    //     setNewDescription("");
-
-    //   } catch (error) {
-    //     alert('등록 과정에서 에러가 발생했습니다 : ' + error.message);
-    //   }
-    // };
-
     return (
       <Section>
         <InputRow>
