@@ -74,7 +74,6 @@ export default function CreateExpense({ month }) {
 
   const queryClient = useQueryClient();
 
-  // ??? 만약 아래처럼 안 쓰고 일반적인 방법으로 작성한다면 얼마나 로직이 복잡하고 코드가 길어지는가?
   const mutation = useMutation( {
     mutationFn: newExpense => jsonApi.post('/expenses', newExpense),
     onSuccess: () => {
@@ -83,7 +82,7 @@ export default function CreateExpense({ month }) {
   });
 
   const handleAddExpense = () => {
-    // 유효성 검사
+
     const datePattern = /^\d{4}-\d{2}-\d{2}$/;
     if (!datePattern.test(newDate)) {
       alert('날짜를 YYYY-MM-DD 형식으로 입력해주세요.');
