@@ -9,30 +9,40 @@ import Detail from "./pages/Detail";
 import MyPage from "./pages/MyPage";
 import Login from "./pages/LoginPage";
 import { jsonApi } from "../api";
+import { useQuery } from '@tanstack/react-query';
 
 function App() {
-  const [expenses, setExpenses] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  // const [expenses, setExpenses] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchExpenses = async () => {
-      setLoading(true);
-      try {
-        const { data } = await jsonApi.get('/expenses');
-        setExpenses(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchExpenses = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const { data } = await jsonApi.get('/expenses');
+  //       setExpenses(data);
+  //     } catch (err) {
+  //       setError(err.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchExpenses();
-  }, []);
-  
-  if (loading) return <div>로딩중입니다</div>;
-  if (error) return <div>에러 발생 : {error}</div>;
+  //   fetchExpenses();
+  // }, []);
+
+  // R : useQuery, CUD : useMutation => 쿼리키가 따로 없음
+  const { data: expenses, error, isLoading } = useQuery({
+    queryKey: ['expenses'],
+    queryFn: async () => {
+      const { data } = await jsonApi.get('/expenses');
+      return data;
+    }
+  });
+
+  if (isLoading) return <div>로딩중입니다</div>;
+  if (error) return <div>에러 발생 : {error.massage}</div>;
   console.log('json 서버에서 불러온 데이터입니다요 =>', expenses);
 
   const PrivateRoute = ({ element, ...rest }) => {
@@ -52,11 +62,11 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={<PrivateRoute element={<Home expenses={expenses} setExpenses={setExpenses} />} />}
+              element={<PrivateRoute element={<Home expenses={expenses}/>} />}
             />
             <Route
               path="/detail/:id"
-              element={<PrivateRoute element={<Detail expenses={expenses} setExpenses={setExpenses} />} />}
+              element={<PrivateRoute element={<Detail expenses={expenses}/>} />}
             />
             <Route path="/login"
               element={<PublicRoute element={<Login />} />} />

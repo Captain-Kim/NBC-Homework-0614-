@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { jsonApi } from "../../api";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Container = styled.div`
   max-width: 800px;
@@ -78,6 +79,8 @@ export default function Detail({ expenses, setExpenses }) {
   const [newAmount, setNewAmount] = useState("");
   const [newDescription, setNewDescription] = useState("");
 
+  const queryClient = useQueryClient();
+
   const editExpense = async (id) => {
     try {
       const datePattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -99,7 +102,11 @@ export default function Detail({ expenses, setExpenses }) {
       };
 
       await jsonApi.put(`/expenses/${id}`, updatedExpense);
-      setExpenses(expenses.map(expense => (expense.id === id ? updatedExpense : expense)));
+
+      // 위 PUT 요청 이후 새롭게 GET 요청을 보내서 아래의 상태 변경으로 옵티미스트한 렌더링을 안 해줘도 됨.
+      queryClient.invalidateQueries({queryKey:['expenses']});
+      // setExpenses(expenses.map(expense => (expense.id === id ? updatedExpense : expense)));
+
       // ??? 상태 변경이 왜 필요한가? 홈으로 나가면 GET 요청을 다시 보내서 새롭게 데이터를
       // 받아와 상태가 변경되어 리렌더링까지 잘 되는데 이 과정이 필요한 이유는?
       // 일단 없애도 작동 잘 함.
