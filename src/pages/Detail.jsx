@@ -7,47 +7,62 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 const Container = styled.div`
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 16px;
+  padding: 30px;
+  background-color: #fdfdfd;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 `;
 
 const InputGroup = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 
   label {
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #333;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #444;
     text-align: left;
+    font-weight: 600;
   }
 
   input {
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+    }
   }
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 15px;
+  justify-content: flex-end;
 `;
 
 const Button = styled.button`
-  padding: 10px 20px;
+  padding: 12px 25px;
   background-color: ${(props) => (props.danger ? "#ff4d4d" : "#007bff")};
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.3s, transform 0.2s;
 
   &:hover {
     background-color: ${(props) => (props.danger ? "#cc0000" : "#0056b3")};
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(1);
   }
 `;
 

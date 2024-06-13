@@ -3,41 +3,34 @@ import { Section } from "../pages/Home";
 
 const MonthWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* 각 줄에 6개의 컬럼을 생성 */
+  grid-template-columns: repeat(6, 1fr);
   gap: 20px;
   justify-content: center;
+  margin-bottom: 20px;
 `;
 
 const MonthButton = styled.button`
   text-align: center;
-  font-family: Pretendard, serif;
+  font-family: 'Pretendard', serif;
   font-size: 18px;
-  font-style: normal;
   font-weight: 600;
   line-height: normal;
-
   display: flex;
   height: 60px;
   padding: 20px;
-  width: 104px;
+  width: 120px;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
-  color: ${(props) =>
-    props.selected
-      ? "var(--white-alpha-100, #fff)"
-      : "var(--black-alpha-100, #000)"};
-  border-radius: 10px;
-  border: none;
+  color: ${(props) => (props.selected ? "#fff" : "#000")};
+  border-radius: 12px;
+  border: 2px solid ${(props) => (props.selected ? "black" : "#F6F7FA")};
   cursor: pointer;
-  background: ${(props) =>
-    !props.selected
-      ? "var(--black-alpha-100, #F6F7FA)"
-      : "var(--bg-form, #2EC4B6)"};
+  background: ${(props) => (props.selected ? "black" : "#F6F7FA")};
+  transition: background-color 0.3s, color 0.3s;
 
   &:hover {
-    background: #2ec4b6;
-    color: #fff;
+    background: yellow;
+    color: black;
   }
 `;
 

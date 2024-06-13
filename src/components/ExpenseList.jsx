@@ -5,17 +5,17 @@ import { useNavigate } from "react-router-dom";
 const ExpenseItemList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 `;
 
 const ExpenseItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px 25px;
+  border-radius: 10px;
+  background-color: #fdfdfd;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
 
@@ -25,12 +25,12 @@ const ExpenseItem = styled.div`
 
   span {
     font-size: 16px;
-    color: #333;
+    color: #444;
   }
 
   span:last-child {
     font-weight: bold;
-    color: #007bff;
+    color: black;
     flex-shrink: 0;
   }
 `;
@@ -47,7 +47,7 @@ const ExpenseDetails = styled.div`
   span {
     &:first-child {
       margin-bottom: 5px;
-      color: #666;
+      color: #777;
       font-size: 14px;
     }
 
@@ -57,6 +57,7 @@ const ExpenseDetails = styled.div`
       text-overflow: ellipsis;
       max-width: 100%;
       padding-top: 5px;
+      font-weight: 600;
     }
   }
 `;

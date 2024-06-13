@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 const InputRow = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
   align-items: flex-end;
 `;
 
@@ -16,38 +16,55 @@ const InputGroupInline = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-width: 120px;
+  min-width: 140px;
+
   label {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-size: 14px;
-    color: #333;
+    color: #444;
     text-align: left;
+    font-weight: 600;
   }
+
   input {
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
+    border-radius: 6px;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+    }
   }
 `;
 
 const AddButton = styled.button`
-  padding: 8px 20px;
-  height: 34px;
+  padding: 10px 25px;
+  height: 40px;
   margin-top: 10px;
-  background-color: #007bff;
+  background-color: black;
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 6px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.3s, transform 0.2s;
+
   &:hover {
-    background-color: #0056b3;
+    background-color: yellow;
+    color: black;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(1);
   }
 `;
 
-export default function CreateExpense({ month, expenses, setExpenses }) {
+export default function CreateExpense({ month }) {
   const [newDate, setNewDate] = useState(
     `2024-${String(month).padStart(2, "0")}-01`
   );

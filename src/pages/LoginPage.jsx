@@ -30,6 +30,11 @@ const Button = styled.button`
   background-color: #ffe4c4;
   color: #547fb2;
   border-radius: 4px;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 const SignUpBox = styled.div`
@@ -67,6 +72,7 @@ const SignUpBox = styled.div`
     font-size: 1.2em;
     border: none;
     margin: 0;
+    // width: 340px;
   }
 
   &.active input {
@@ -93,8 +99,12 @@ const CloseButton = styled.span`
 const Icon = styled.i`
   font-size: 1.9em;
   color: #fff;
-`;
+  transition: transform 0.3s ease-in-out;
 
+  &:hover {
+    transform: scale(1.2);
+  }
+`;
 const LoginPage = () => {
   const [signUpActive, setSignUpActive] = useState(false);
   const [id, setId] = useState('');

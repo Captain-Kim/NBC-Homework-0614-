@@ -9,11 +9,12 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 40px;
-  background-color: #f4f4f9;
-  min-height: 30vh;
-  max-width: 30vh;
+  background-color: #ffffff;
+  min-height: 50vh;
+  max-width: 300px;
   margin: 100px auto;
   border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 `;
 
 const InputFieldWithLabel = styled.div`
@@ -21,23 +22,30 @@ const InputFieldWithLabel = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 0;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
-  max-width: 400px;
-  margin-bottom: 16px;
+  max-width: 500px;
+  margin-bottom: 20px;
 
   label {
     font-weight: bold;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+    font-size: 16px;
   }
 
   input {
     width: 100%;
     padding: 12px;
-    font-size: 1em;
+    font-size: 16px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+    }
   }
 `;
 
@@ -46,13 +54,13 @@ const InputFieldWithButton = styled.div`
   flex-direction: row;
   align-items: center;
   padding: 0;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
-  max-width: 400px;
-  margin-bottom: 16px;
+  max-width: 500px;
+  margin-bottom: 20px;
   background: #ffffff;
   border: 1px solid #e0e0e0;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
 
   input[type="file"] {
@@ -61,14 +69,18 @@ const InputFieldWithButton = styled.div`
 
   label {
     padding: 12px 16px;
-    margin: 10px;
     font-size: 1em;
     border: none;
     background-color: #86acd9;
     color: white;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin: 10px;
+
+    &:hover {
+      background-color: #649bbd;
+    }
   }
 
   span {
@@ -76,10 +88,6 @@ const InputFieldWithButton = styled.div`
     padding: 12px;
     font-size: 1em;
     color: #333;
-  }
-
-  label:hover {
-    background-color: #649bbd;
   }
 `;
 
@@ -89,24 +97,26 @@ const Button = styled.button`
   align-items: center;
   padding: 14px 24px;
   width: 100%;
-  max-width: 400px;
-  height: 42px;
-  background: #000000;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
-  border: none;
+  max-width: 500px;
+  height: 48px;
+  background: #007bff;
   color: #ffffff;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
 
   &:hover {
-    background: #333333;
+    background: #0056b3;
   }
 `;
 
 const CurrentProfilePic = styled.img`
-  width: 250px;
-  border-radius: 20px;
+  width: 150px;
+  height: 150px;
+  border-radius: 75px;
+  margin-bottom: 20px;
+  border: 3px solid #ddd;
 `;
 
 const MyPage = () => {
