@@ -115,17 +115,6 @@ export default function Detail({ expenses }) {
     },
   });
 
-  // const deleteExpense = async (id) => {
-  //   try {
-  //     await jsonApi.delete(`/expenses/${id}`);
-  //     setExpenses(prevExpenses => prevExpenses.filter(expense => expense.id !== id));
-  //     alert(`${description} 항목을 삭제하였습니다.`);
-  //     navigate('/');
-  //   } catch (error) {
-  //     alert('삭제 과정에서 에러가 발생했습니다 : ' + error.message);
-  //   }
-  // };
-
   return (
     <Container>
       <InputGroup>
