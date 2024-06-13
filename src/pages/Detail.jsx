@@ -70,15 +70,6 @@ export default function Detail({ expenses }) {
   const [amount, setAmount] = useState(selectedExpense.amount);
   const [description, setDescription] = useState(selectedExpense.description);
 
-  const today = new Date();
-  const month = today.getMonth() + 1; // 현재 월 가져오기
-  const [newDate, setNewDate] = useState(
-    `2024-${String(month).padStart(2, "0")}-01`
-  );
-  const [newItem, setNewItem] = useState("");
-  const [newAmount, setNewAmount] = useState("");
-  const [newDescription, setNewDescription] = useState("");
-
   const queryClient = useQueryClient();
 
   const editExpense = async (id) => {
@@ -102,26 +93,10 @@ export default function Detail({ expenses }) {
       };
 
       await jsonApi.put(`/expenses/${id}`, updatedExpense);
-
       // 위 PUT 요청 이후 새롭게 GET 요청을 보내서 아래의 상태 변경으로 옵티미스트한 렌더링을 안 해줘도 됨.
       queryClient.invalidateQueries({queryKey:['expenses']});
       // setExpenses(expenses.map(expense => (expense.id === id ? updatedExpense : expense)));
-
-      // ??? 상태 변경이 왜 필요한가? 홈으로 나가면 GET 요청을 다시 보내서 새롭게 데이터를
-      // 받아와 상태가 변경되어 리렌더링까지 잘 되는데 이 과정이 필요한 이유는?
-      // 일단 없애도 작동 잘 함.
-      // ??? 성능 최적화를 하기 위함인가? 서버에서 홈으로 나갈 때마다 상태 변경없이 같은 내용인데
-      // GET 요청을 계속 보내서 새로 받아오면 비효율인 것 같은데,
-      // 상태가 같으면 fetch에서 응답하는 내용이 없도록 할 수 있는 것인가? 이게 쿠키인가 그거?
-      // ??? 이렇게 상태를 바꿔서 리렌더링 시켰는데 서버에서 뭔가 반영이 잘 안 되어서 클라이언트와 서버의 자료가 달라지면 어떻게 되는가?
       alert(`${item} 항목을 수정하였습니다.`);
-
-      // 초기화
-      const month = today.getMonth() + 1; // 현재 월 가져오기
-      setNewDate(`2024-${String(month).padStart(2, "0")}-01`);
-      setNewItem("");
-      setNewAmount("");
-      setNewDescription("");
 
     } catch (error) {
       alert('수정 과정에서 에러가 발생했습니다 : ' + error.message);

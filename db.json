@@ -6,7 +6,7 @@
       "date": "2024-01-03",
       "item": "개인사업",
       "amount": 1000000,
-      "description": "테슬라 모델 3",
+      "description": "기아자동차",
       "createdBy": "Musk"
     },
     {
@@ -131,6 +131,14 @@
       "item": "식비",
       "amount": 20000,
       "description": "수박 화채"
+    },
+    {
+      "id": "a01bee59-2bd4-4c06-9a57-15c957e87a28",
+      "month": 1,
+      "date": "2024-01-01",
+      "item": "생필품",
+      "amount": 35000,
+      "description": "다이소"
     }
   ]
 }

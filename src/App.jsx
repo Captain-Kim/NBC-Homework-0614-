@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { useState, useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext, AuthProvider } from "../context/AuthContext";
-import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
@@ -12,26 +11,6 @@ import { jsonApi } from "../api";
 import { useQuery } from '@tanstack/react-query';
 
 function App() {
-  // const [expenses, setExpenses] = useState([]);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchExpenses = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const { data } = await jsonApi.get('/expenses');
-  //       setExpenses(data);
-  //     } catch (err) {
-  //       setError(err.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchExpenses();
-  // }, []);
-
   // R : useQuery, CUD : useMutation => 쿼리키가 따로 없음
   const { data: expenses, error, isLoading } = useQuery({
     queryKey: ['expenses'],
@@ -39,10 +18,6 @@ function App() {
       const { data } = await jsonApi.get('/expenses');
       return data;
     },
-    // staleTime 기본값 0 -> 서버에서 방금 받아온 정보도 수정이 일어났을 수 있으니
-    // fresh하다고 보장할 수 없다. (stale하다)
-    // infinity하다고 하는 것은 fresh를 보장하는 것.
-    // 나 말고 어차피 아무도 건드릴 일이 없는 정보는 fresh하다고 보고 트래픽 낭비를 줄일 수 있음.
     staleTime: Infinity
   });
 
