@@ -99,12 +99,15 @@ export default function Detail({ expenses }) {
         return;
       }
 
+      const nickname = localStorage.getItem('nickname');
+
       const updatedExpense = {
         ...selectedExpense, // 원래의 모든 필드를 유지
         date: date,
         item: item,
         amount: amount,
         description: description,
+        createdBy: nickname,
       };
 
       await jsonApi.put(`/expenses/${id}`, updatedExpense);

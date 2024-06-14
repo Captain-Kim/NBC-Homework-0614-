@@ -187,7 +187,7 @@ const LoginPage = () => {
             <Input
               type="text"
               name="nickname"
-              placeholder="Nickname"
+              placeholder="닉네임"
               value={signUpNickname}
               onChange={(e) => setSignUpNickname(e.target.value)}
             />

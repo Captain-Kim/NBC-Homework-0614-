@@ -6,8 +6,8 @@
       "date": "2024-01-17",
       "item": "식비",
       "amount": 21000,
-      "description": "대광참치",
-      "createdBy": "Rosie"
+      "description": "대광참치g",
+      "createdBy": "가을"
     },
     {
       "id": "b82b213e-8164-4c89-94b0-7246cdcfc4f9",
@@ -129,6 +129,31 @@
       "item": "생필품",
       "amount": 35000,
       "description": "다이소"
+    },
+    {
+      "id": "e4e2913c-d552-42ff-9282-546d285f189c",
+      "month": 1,
+      "date": "2024-01-01",
+      "item": "식비",
+      "amount": 30000,
+      "description": "탄산수"
+    },
+    {
+      "id": "5878659f-0f2b-4efa-aa1f-a6654563b0f7",
+      "month": 1,
+      "date": "2024-01-01",
+      "item": "가전",
+      "amount": 50000,
+      "description": "선풍기"
+    },
+    {
+      "id": "5b1258b6-ec39-4f76-96c1-6cdb55889228",
+      "month": 1,
+      "date": "2024-01-01",
+      "item": "여가",
+      "amount": 150000,
+      "description": "성시경 콘서트 티켓",
+      "createdBy": "가을"
     }
   ]
 }

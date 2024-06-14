@@ -181,17 +181,21 @@ const MyPage = () => {
       );
 
       if (response.data.success) {
+        const updatedNickname = response.data.nickname;
+        const updatedAvatar = response.data.avatar;
+
         setUserInfo((prevState) => ({
           ...prevState,
           nickname: response.data.nickname,
-          avatar: response.data.avatar,
+          avatar: updatedAvatar,
         }));
         setUser((prevState) => ({
           ...prevState,
           nickname: response.data.nickname,
-          avatar: response.data.avatar,
+          avatar: updatedAvatar,
         }));
         alert("프로필이 업데이트되었습니다.");
+        localStorage.setItem('nickname', updatedNickname);
         setNewNickname("");
         setSelectedFile(null);
         setFileName("");
@@ -222,7 +226,7 @@ const MyPage = () => {
         </InputFieldWithLabel>
         <InputFieldWithLabel>
           <label>현재 프로필 사진</label>
-          <CurrentProfilePic src={userInfo.avatar}/>
+          <CurrentProfilePic src={userInfo.avatar} />
           <label>변경할 프로필 사진 선택</label>
           <InputFieldWithButton>
             <label htmlFor="file-upload">파일 선택</label>
