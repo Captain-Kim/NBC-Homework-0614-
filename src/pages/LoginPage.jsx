@@ -124,11 +124,36 @@ const LoginPage = () => {
     setSignUpActive(false);
   };
 
-  const handleSignUp = () => {
-    if (signUpNickname === '' || signUpEmail === '' || signUpPassword === '') {
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    if (signUpNickname === '' || signUpId === '' || signUpPassword === '') {
+      alert("모든 필드를 입력해주세요.");
       return;
     }
-    removeActive();
+  
+    try {
+      const response = await axios.post(
+        "https://moneyfulpublicpolicy.co.kr/register",
+        {
+          id: signUpId,
+          nickname: signUpNickname,
+          password: signUpPassword,
+        }
+      );
+  
+      const data = response.data;
+      if (data.success) {
+        // 회원가입 성공 후 로그인 처리
+        console.log("회원가입 성공 => ", data);
+        login(data.accessToken, data);
+        navigate('/');
+      } else {
+        alert('회원가입에 실패했습니다. 계정을 확인해주세요.');
+      }
+    } catch (error) {
+      console.error('SignUp error:', error);
+      alert('회원가입에 실패했습니다.');
+    }
   };
 
   const handleLoginSubmit = async (e) => {
@@ -208,7 +233,7 @@ const LoginPage = () => {
             <Button
               onClick={(e) => {
                 e.stopPropagation();
-                handleSignUp();
+                handleSignUp(e);
               }}
             >
               가입하기
