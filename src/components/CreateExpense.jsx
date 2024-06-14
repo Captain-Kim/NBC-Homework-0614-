@@ -67,7 +67,6 @@ const AddButton = styled.button`
 `;
 
 export default function CreateExpense({ month }) {
-  // const { nickname } = useContext(AuthContext);
   const [newDate, setNewDate] = useState(
     `2024-${String(month).padStart(2, "0")}-01`
   );
@@ -98,6 +97,7 @@ export default function CreateExpense({ month }) {
       return;
     }
 
+    // 로컬스토리지 경유 방식은 유저가 작성자를 조작할 수 있음 개선 필요해보임
     const nickname = localStorage.getItem('nickname');
 
     const newExpense = {

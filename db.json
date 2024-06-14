@@ -154,6 +154,15 @@
       "amount": 150000,
       "description": "성시경 콘서트 티켓",
       "createdBy": "가을"
+    },
+    {
+      "id": "8028dfe0-8311-48cd-9d12-c1f1d75644ea",
+      "month": 1,
+      "date": "2024-01-01",
+      "item": "여가",
+      "amount": 30000,
+      "description": "유튜브 프리미엄 결제",
+      "createdBy": "장원영"
     }
   ]
 }
