@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import axios from "axios";
-import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUser } from '../../redux/authSlice';
 
 const Container = styled.div`
   display: flex;
@@ -124,8 +125,10 @@ const MyPage = () => {
   const [newNickname, setNewNickname] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileName, setFileName] = useState("");
-  const { isAuthenticated, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     if (!isAuthenticated) {

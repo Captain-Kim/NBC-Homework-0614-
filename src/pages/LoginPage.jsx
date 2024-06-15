@@ -1,8 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { AuthContext } from '../../context/AuthContext';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../../redux/authSlice';
+
 
 const Container = styled.div`
   position: relative;
@@ -112,8 +114,9 @@ const LoginPage = () => {
   const [signUpNickname, setSignUpNickname] = useState('');
   const [signUpId, setSignUpId] = useState('');
   const [signUpPassword, setSignUpPassword] = useState('');
-  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     if (signUpActive) return;
@@ -145,7 +148,7 @@ const LoginPage = () => {
       if (data.success) {
         // 회원가입 성공 후 로그인 처리
         console.log("회원가입 성공 => ", data);
-        login(data.accessToken, data);
+        dispatch(login({ token: data.accessToken, user:data }));
         navigate('/');
       } else {
         alert('회원가입에 실패했습니다. 계정을 확인해주세요.');
@@ -169,7 +172,7 @@ const LoginPage = () => {
       const data = response.data;
       if (data.success) {
         console.log("날아온 유저 데이터 => ", data);
-        login(data.accessToken, data);
+        dispatch(login({ token: data.accessToken, user: data }));
         navigate('/');
       } else {
         alert('로그인에 실패했습니다. 계정을 확인해주세요.')

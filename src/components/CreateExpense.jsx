@@ -4,8 +4,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { jsonApi } from "../../api";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AuthContext } from "../../context/AuthContext";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 const InputRow = styled.div`
   display: flex;
@@ -83,6 +82,8 @@ export default function CreateExpense({ month }) {
     }
   });
 
+  const nickname = useSelector((state) => state.auth.nickname);
+
   const handleAddExpense = () => {
 
     const datePattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -96,9 +97,6 @@ export default function CreateExpense({ month }) {
       alert('유효한 항목과 금액을 입력해주세요.');
       return;
     }
-
-    // 로컬스토리지 경유 방식은 유저가 작성자를 조작할 수 있음 개선 필요해보임
-    const nickname = localStorage.getItem('nickname');
 
     const newExpense = {
       id: uuidv4(),

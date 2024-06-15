@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../redux/authSlice';
+
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -77,8 +78,12 @@ const LogoutButton = styled.button`
 
 const Header = () => {
 
-  const { logout, user } = useContext(AuthContext);
-  console.log("헤더에 필요한 유저의 정보는요 =>", user);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  }
 
   return (
     <HeaderContainer>
@@ -89,7 +94,7 @@ const Header = () => {
       <ProfileContainer>
         <ProfileImage src={user && user.avatar} alt="Profile" />
         <Username>{user ? user.nickname : '로그인 필요'}</Username>
-        <LogoutButton onClick={logout}>로그아웃</LogoutButton>
+        <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
       </ProfileContainer>
     </HeaderContainer>
   );
